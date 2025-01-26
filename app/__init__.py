@@ -25,6 +25,7 @@ def create_app(config_class=Config):
   db.init_app(app)
   migrate.init_app(app, db)
   login.init_app(app)
+  mail.init_app(app)
 
   argon2.init_app(app)
   csrf.init_app(app)

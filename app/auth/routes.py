@@ -1,14 +1,15 @@
 from datetime import datetime
 
 from flask import render_template, redirect, url_for, flash, request, jsonify
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 from app import db
 from app.models import User
 
 from app.auth import bp
 from app.auth.forms import LoginForm, TwoFactorForm, RegistrationForm, VerifyForm
-from app.auth.email import send_verify_token_email, send_password_reset_email
+from app.auth.email import send_verify_token_email, send_password_reset_token_email, send_tfa_token_email
+
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -26,13 +27,20 @@ def login():
 
     login_user(user) #, remember=form.remember_me.data)
 
+    send_tfa_token_email(current_user)
+
     return redirect(url_for('auth.two_factor_auth'))
 
   return render_template('auth/login.html', title='Logowanie', form=form)
 
 @bp.route('/2fa', methods=['GET', 'POST'])
+@login_required
 def two_factor_auth():
   form = TwoFactorForm()
+
+  if form.validate_on_submit():
+    if current_user.verify_tfa_token(form.code.data):
+      print('YAY')
 
   return render_template('auth/2fa.html', title='Autoryzacja dwuetapowa', form=form)
 

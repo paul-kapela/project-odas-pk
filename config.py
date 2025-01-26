@@ -25,4 +25,4 @@ class Config:
   ARGON2_TIME_COST = 4
   ARGON2_PARALLELISM = 2
 
-  RESEND_COOLDOWN = timedelta(minutes=os.environ.get('RESEND_COOLDOWN') or 300)
+  TOKEN_LIFE = timedelta(minutes=os.environ.get('RESEND_COOLDOWN') or 300)
