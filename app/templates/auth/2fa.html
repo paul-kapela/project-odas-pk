@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Uwierzytelnianie dwuetapowe</h1>
+
+<p>Proszę podać kod 2FA, który powinien dotrzeć na skrzynkę e-mail.</p>
+
+<form class="mt-3" method="post">
+  {{ form.csrf_token }}
+
+  <div>
+    <label for="code" class="form-label">{{ form.code.label }}</label>
+    <input type="text" class="form-control" id="code" name="code">
+  </div>
+
+  <div class="mt-3">
+    <button type="submit" class="btn btn-primary">Zweryfikuj</button>
+  </div>
+</form>
+{% endblock %}

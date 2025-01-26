@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Weryfikacja adresu e-mail</h1>
+
+<form class="mt-3" method="post">
+  {{ form.csrf_token }}
+
+  <div>
+    <label for="code" class="form-label">{{ form.code.label }}</label>
+    <input type="text" class="form-control" id="code" name="code">
+  </div>
+
+  <div class="mt-3">
+    <button type="submit" class="btn btn-primary">Potwierdź</button>
+  </div>
+</form>
+{% endblock %}

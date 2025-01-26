@@ -1,0 +1,6 @@
+Użytkowniku {{ user.username }},
+
+podaj ten kod, aby zweryfikować e-mail: {{ code }}
+
+Pozdrawiamy,
+Chirp
